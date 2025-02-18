@@ -33,9 +33,10 @@ pythonpath = "."
 line-length = 79
 
 [tool.ruff.lint]
-select = ["I", "N", "F", "E", "W", "D", "PL"]
+select = ["I", "N", "F", "E", "W", "D", "PL", "PT"]
+ignore = ['D100', 'D101', 'D103', 'D104', 'D203', 'D213']
 
-[tool.ruff.lint.docstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
 
 [tool.ruff.format]
