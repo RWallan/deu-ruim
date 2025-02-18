@@ -1,0 +1,88 @@
+[project]
+name = "deu-ruim"
+dynamic = [ "version" ]
+description = "A CLI made to help beginners fix your terminal commands using the LLM powers."
+authors = [
+    {name = "RWallan",email = "3am.richardwallan@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13, <4.0"
+dependencies = [
+    "pydantic-ai (>=0.0.24,<0.0.25)",
+    "cyclopts (>=3.9.0,<4.0.0)"
+]
+
+[tool.poetry]
+version = "0.1.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+pytest-cov = "^6.0.0"
+ruff = "^0.9.6"
+towncrier = "^24.8.0"
+taskipy = "^1.14.1"
+
+[tool.pytest.ini_options]
+pythonpath = "."
+
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.lint]
+select = ["I", "N", "F", "E", "W", "D", "PL"]
+
+[tool.ruff.lint.docstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.taskipy.tasks]
+lint = "ruff check .; ruff check . --diff"
+format = "ruff check . --fix; ruff format ."
+pre_test = "task lint"
+test = "pytest -s -x -vv --cov=deu_ruim"
+post_test = "coverage html"
+
+[tool.towncrier]
+directory = "changelog.d"
+filename = "CHANGELOG.md"
+package = "deu_ruim"
+start_string = "<!-- towncrier release notes start -->"
+underlines = ["", "", ""]
+title_format = "## [{version}](https://github.com/RWallan/deu-ruim/tree/{version}) - {project_date}"
+issue_format = "[#{issue}](https://github.com/RWallan/deu-ruim/issues/{issue})"
+
+[[tool.towncrier.type]]
+directory = "security"
+name = "Security"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "removed"
+name = "Removed"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "deprecated"
+name = "Deprecated"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "added"
+name = "Added"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "changed"
+name = "Changed"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "fixed"
+name = "Fixed"
+showcontent = true
