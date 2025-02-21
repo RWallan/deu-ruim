@@ -12,6 +12,9 @@ dependencies = [
     "cyclopts (>=3.9.0,<4.0.0)"
 ]
 
+[project.scripts]
+deu-ruim = "deu_ruim.cli:app"
+
 [tool.poetry]
 version = "0.1.0"
 
