@@ -4,7 +4,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for your interest in **Track My Attendance**!
+        Thanks for your interest in **Deu Ruim**!
 
         If you are not @RWallan or he didn't ask you directly to create an issue here, please start the conversation in a [Question in GitHub Discussions](https://github.com/RWalllan/deu-ruim/discussions) or create a [GitHub Issue](https://github.com/RWallan/deu-ruim/issues) instead.
   - type: checkboxes
