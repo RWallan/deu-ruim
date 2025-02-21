@@ -1,0 +1,57 @@
+name: Feature Request
+description: Suggest an idea for this project
+title: "[FEATURE]: "
+labels: ["enhancement"]
+assignees:
+  - RWallan
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping to improve the project!
+
+        Please follow these instructions, fill out every question, and complete every step.
+  - type: checkboxes
+    id: feature-checks
+    attributes:
+      label: Checklist
+      description: Please confirm and check all the following options.
+      options:
+        - label: I added a very descriptive title here.
+          required: true
+        - label: I tried to find a similar [issue](https://github.com/RWallan/deu-ruim/issues).
+          required: true
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Description
+      description: Describe your idea for the project.
+    validations:
+      required: true
+  - type: textarea
+    id: feature-help
+    attributes:
+      label: Why will it help?
+      description: Describe why you think this idea will benefit the project and other users.
+    validations:
+      required: true
+  - type: textarea
+    id: feature-issue
+    attributes:
+      label: Is your feature request related to a problem?
+      description: Describe the problem you encountered and how this feature will help.
+  - type: dropdown
+    id: feature-pr
+    attributes:
+      label: Pull Request
+      description: Are you considering creating a Pull Request to implement this feature? It’s okay if you are not considering it at this moment.
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+  - type: textarea
+    id: feature-context
+    attributes:
+      label: Additional Context
+      description: Add any additional context or screenshots that you think are useful.

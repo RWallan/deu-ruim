@@ -1,0 +1,72 @@
+name: Bug Report
+description: Create a report to help us improve
+title: "[BUG]: "
+labels: ["bug"]
+assignees:
+  - RWallan
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for help to improve the project!
+
+        Please follow these instructions, fill every question, and do every step.
+
+        I'm asking this to be able to understand and fix the bug quickly as possible.
+  - type: checkboxes
+    id: bug-checks
+    attributes:
+      label: First check
+      description: Please confirm and check all the following options.
+      options:
+        - label: I added a very description title here.
+          required: true
+        - label: I tried to find a similar [issue](https://github.com/RWallan/deu-ruim/issues)
+          required: true
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Description
+      description: What is the problem or error?
+      placeholder: I'm receiving a unexpected error when I try to run the CLI.
+    validations:
+      required: true
+  - type: textarea
+    id: bug-steps
+    attributes:
+      label: To reproduce
+      description: Steps to reproduce the behavior, including any relevant code snippets.
+      placeholder: deu-ruim sl.
+    validations:
+      required: true
+  - type: textarea
+    id: bug-behavior
+    attributes:
+      label: Expected behavior
+      description: A clean and concise description of what you expected to happen.
+      placeholder: A successfull login.
+    validations:
+      required: true
+  - type: dropdown
+    id: bug-console
+    attributes:
+      label: Console
+      description: What console are you on?
+      multiple: true
+      options:
+        - bash
+        - zsh
+        - fish
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: console-browser-details
+    attributes:
+      label: Browser Details
+      description: You can add more details about your console here, in particular if you chose "Other".
+  - type: textarea
+    id: bug-context
+    attributes:
+      label: Additional Context
+      description: Add any additional context information or screenshots you think are useful.

@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions
+    about: Ask a question or ask about a problem in GitHub Discussions
+    url: https://github.com/RWallan/deu-ruim/discussions/categories/q-a

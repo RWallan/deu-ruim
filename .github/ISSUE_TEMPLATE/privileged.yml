@@ -1,0 +1,22 @@
+name: Privileged
+description: You are @RWallan or he asked you directly to create an issue here. If not, check the other options.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your interest in **Track My Attendance**!
+
+        If you are not @RWallan or he didn't ask you directly to create an issue here, please start the conversation in a [Question in GitHub Discussions](https://github.com/RWalllan/deu-ruim/discussions) or create a [GitHub Issue](https://github.com/RWallan/deu-ruim/issues) instead.
+  - type: checkboxes
+    id: privileged
+    attributes:
+      label: Privileged issue
+      description: Confirm that you are allowed to create an issue here.
+      options:
+        - label: I'm @RWallan or he asked me directly to create an issue here.
+          required: true
+  - type: textarea
+    id: content
+    attributes:
+      label: Issue Content
+      description: Add the content of the issue here.
