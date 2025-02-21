@@ -46,6 +46,7 @@ async def fixer_system_prompt() -> str:
     ]
 
     return f"""\
+    You'll receive an incorrect terminal command.
     Be concise and only return the fixed command.
 
     Answer without any explanation.
