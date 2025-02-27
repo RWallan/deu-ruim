@@ -4,6 +4,7 @@ import click
 import rich
 from cyclopts import App
 from pydantic_ai import UnexpectedModelBehavior
+from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from deu_ruim.llm.agents import Fixer, Validator
 from deu_ruim.llm.deps import FixerDeps
@@ -21,36 +22,52 @@ async def deu_ruim(cmd: str, *, verbose: bool = False):
         cmd: Terminal command
         verbose: Show more messages about the run
     """
-    deps = FixerDeps(validator_agent=Validator)
-    _, error = await execute_terminal_cmd(cmd)
-    if error:
-        try:
-            result = await Fixer.run(
-                f'Please, fix the command {cmd}. It provided the error: {error}',  # noqa: E501
-                deps=deps,
+    with Progress(
+        SpinnerColumn(), TextColumn('{task.description}'), transient=True
+    ) as progress:
+        task_id = progress.add_task('Diagnosting command...', total=None)
+        deps = FixerDeps(
+            validator_agent=Validator, progress=progress, task_id=task_id
+        )
+        _, error = await execute_terminal_cmd(cmd)
+        if error:
+            progress.update(
+                task_id,
+                description='Generating correct comand...',
             )
-        except UnexpectedModelBehavior as e:
-            if verbose:
-                rich.print(e)
-            rich.print('[red]Deu ruim! 💀')
-            sys.exit(1)
-
-        if isinstance(result.data, FixerSuccess):
-            if click.confirm(f'Run {result.data.fixed_command}', default=True):
-                stdout, stderr = await execute_terminal_cmd(
-                    result.data.fixed_command
+            try:
+                result = await Fixer.run(
+                    f'Please, fix the command {cmd}. It provided the error: {error}',  # noqa: E501
+                    deps=deps,
                 )
-                if stderr:
-                    if verbose:
-                        rich.print(stderr)
-                    rich.print('[red]Deu ruim! 💀')
-                else:
-                    rich.print(stdout)
-
+            except UnexpectedModelBehavior as e:
+                if verbose:
+                    rich.print(e)
+                rich.print('[red]Deu ruim! 💀')
+                sys.exit(1)
         else:
-            if verbose:
-                rich.print(result.data)
-            rich.print('[red]Deu ruim! 💀')
+            rich.print('[green] Nada para fazer!')
+            sys.exit(0)
+
+    # HACK: Must stop progress explicity otherwise `click.confirm` will not show
+    progress.stop()
+
+    if isinstance(result.data, FixerSuccess):
+        if click.confirm(f'Run {result.data.fixed_command}', default=True):
+            stdout, stderr = await execute_terminal_cmd(
+                result.data.fixed_command
+            )
+            if stderr:
+                if verbose:
+                    rich.print(stderr)
+                rich.print('[red]Deu ruim! 💀')
+            else:
+                rich.print(stdout)
+
+    else:
+        if verbose:
+            rich.print(result.data)
+        rich.print('[red]Deu ruim! 💀')
 
 
 if __name__ == '__main__':

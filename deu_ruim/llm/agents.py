@@ -71,6 +71,9 @@ async def validate_result(
     if isinstance(response, FixerFail):
         return response
 
+    ctx.deps.progress.update(
+        ctx.deps.task_id, description='Validating command...'
+    )
     validator_response = await ctx.deps.validator_agent.run(
         response.fixed_command
     )
