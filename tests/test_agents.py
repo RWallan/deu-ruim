@@ -12,6 +12,7 @@ from pydantic_ai.messages import (
     UserPromptPart,
 )
 from pydantic_ai.models.test import TestModel
+from rich.progress import Progress
 
 from deu_ruim.llm.agents import Fixer, Validator, fixer_system_prompt
 from deu_ruim.llm.deps import FixerDeps
@@ -74,7 +75,11 @@ async def test_fixer_agent():
     with Validator.override(
         model=TestModel(custom_result_args='{"response": "True"}')
     ):
-        deps = FixerDeps(validator_agent=Validator)
+        progress = Progress()
+        task_id = progress.add_task('test')
+        deps = FixerDeps(
+            validator_agent=Validator, progress=progress, task_id=task_id
+        )
         with freeze_time('2025-01-01'):
             with capture_run_messages() as messages:
                 with Fixer.override(
