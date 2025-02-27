@@ -49,7 +49,7 @@ async def deu_ruim(cmd: str, *, verbose: bool = False):
             rich.print('[green] Nada para fazer!')
             sys.exit(0)
 
-    # HACK: Must stop progress explicity otherwise `click.confirm` will not show
+    # HACK: Stop progress explicity otherwise `click.confirm` will not show
     progress.stop()
 
     if isinstance(result.data, FixerSuccess):
